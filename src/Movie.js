@@ -1,40 +1,32 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import './movie.css';
 
-class Movie extends Component {
+//class 대신 functional Component 사용
 
-  //부모 컴포넌트가 string인지 아닌지 체크
-  static propTypes = {
-    title : PropTypes.string.isRequired,
-    poster: PropTypes.string.isRequired 
-  }
-
-  render() {
-    return(
-      <div>
-        <MoviePoster poster={this.props.poster}/>
-        <h2>{this.props.title}</h2>
-      </div>
-    )
-  }
+function Movie({title, poster}){
+  return (
+    <div>
+      <MoviePoster poster={poster} />
+      <h2>{title}</h2>
+    </div>
+  )
 }
-
-// class MoviePoster extends Component{
-//   static propTypes = {
-//     poster : PropTypes.string.isRequired
-//   }
-//   render(){
-//     return (
-//       <img className="poster_img" src={this.props.poster} alt={this.props.title} />
-//     )
-//   }
-// }
 
 function MoviePoster({poster}){
   return (
     <img className="poster_img" src={poster} alt="Movie Poster"/>
-  )
+    )
+  }
+  
+  //부모 컴포넌트가 string인지 아닌지 체크
+  Movie.propTypes = {
+    title  : PropTypes.string.isRequired,
+    poster: PropTypes.string.isRequired
+  }
+
+MoviePoster.propTypes = {
+  poster : PropTypes.number.isRequired
 }
 
 export default Movie;

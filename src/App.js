@@ -22,12 +22,18 @@ class App extends Component {
   _renderMovies = () => {
     const movies = this.state.movies.map(movie => {
       //component의 key를 인덱스로 사용하는 것은 느리기때문에 지양하는 방법
-        return <Movie title={movie.title} poster={movie.large_cover_image} key={movie.id }/>
+        return <Movie title={movie.title_english}
+                      poster={movie.medium_cover_image}
+                      key={movie.id}
+                      genres={movie.genres}
+                      synopsis={movie.synopsis}
+                      />
       })
     return movies;
   }
 
   _getMovies = async () => {
+    //async랑 await는 짝꿍!
     const movies = await this._callApi()
     this.setState({
       movies
@@ -52,8 +58,9 @@ class App extends Component {
  
 
   render() {
+        const { movies } = this.state;
     return (
-      <div className="App">
+      <div className={movies ? "App" : "App--loading"}>
        {this.state.movies ? this._renderMovies() : 'Loading'}
       </div>
     )
